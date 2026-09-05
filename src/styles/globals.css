@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+/*
+ * LearnFlow design tokens — single source of truth (docs/design-system.md).
+ * Components must use token-derived utilities only; extend tokens here, never inline values.
+ */
+@theme {
+  /* Color */
+  --color-paper: #faf7f2;
+  --color-surface: #ffffff;
+  --color-ink: #1a2b3c;
+  --color-ink-soft: #43566b;
+  --color-muted: #6b7a8c;
+  --color-line: #e7e0d4;
+  --color-accent: #e8603c;
+  --color-accent-strong: #c74b2d;
+  --color-accent-soft: #fbeae4;
+  --color-teal: #177e70;
+  --color-teal-soft: #e3f0ed;
+  --color-gold: #e9a83c;
+  --color-gold-soft: #fbf1e1;
+
+  /* Typography (next/font variables wired in app/layout.tsx) */
+  --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-lora), Georgia, serif;
+
+  --text-display: clamp(3rem, 1.5rem + 4.5vw, 4.75rem);
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.02em;
+  --text-hero: clamp(2.25rem, 1.4rem + 2.6vw, 3.5rem);
+  --text-hero--line-height: 1.12;
+  --text-hero--letter-spacing: -0.015em;
+  --text-section: clamp(1.875rem, 1.35rem + 1.6vw, 2.5rem);
+  --text-section--line-height: 1.18;
+  --text-section--letter-spacing: -0.01em;
+  --text-subheading: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --text-subheading--line-height: 1.3;
+  --text-body: 1rem;
+  --text-body--line-height: 1.7;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.6;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.4;
+  --text-caption--letter-spacing: 0.08em;
+
+  /* Radius — depth through radius variety, not shadows */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  /* Shadows — soft, warm, sparing */
+  --shadow-soft: 0 1px 2px rgb(26 43 60 / 0.05), 0 10px 28px rgb(26 43 60 / 0.07);
+  --shadow-lift: 0 2px 4px rgb(26 43 60 / 0.06), 0 16px 36px rgb(26 43 60 / 0.1);
+  --shadow-panel: 0 24px 64px rgb(26 43 60 / 0.18);
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-reveal: 500ms;
+
+  /* Layout */
+  --container-max: 76rem;
+  --z-header: 40;
+  --z-mobile-menu: 50;
+  --z-sticky: 45;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink-soft);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  /* Visible keyboard focus everywhere (04-accessibility) */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-accent-soft);
+    color: var(--color-ink);
+  }
+
+  /* Reduced motion: disable CSS transitions/animations globally (JS handled by MotionConfig) */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
