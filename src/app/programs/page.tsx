@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { ProgramCard } from "@/components/sections/programs-showcase";
 import { ConsultationSection } from "@/components/sections/consultation-section";
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Chương trình học",
     description:
@@ -19,9 +19,9 @@ export function generateMetadata(): Metadata {
   });
 }
 
-export default function ProgramsPage() {
-  const programs = getPrograms();
-  const audiences = getAudiences();
+export default async function ProgramsPage() {
+  const programs = await getPrograms();
+  const audiences = await getAudiences();
 
   return (
     <>

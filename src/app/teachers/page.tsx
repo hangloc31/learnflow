@@ -8,7 +8,7 @@ import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Badge } from "@/components/ui/badge";
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Đội ngũ giáo viên",
     description:
@@ -17,8 +17,8 @@ export function generateMetadata(): Metadata {
   });
 }
 
-export default function TeachersPage() {
-  const teachers = getTeachers();
+export default async function TeachersPage() {
+  const teachers = await getTeachers();
 
   return (
     <>

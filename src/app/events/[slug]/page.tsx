@@ -14,13 +14,18 @@ interface EventPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return getEvents().map((event) => ({ slug: event.slug }));
+export async function generateStaticParams() {
+  try {
+    const events = await getEvents();
+    return events.map((event) => ({ slug: event.slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: EventPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const event = getEvent(slug);
+  const event = await getEvent(slug);
   if (!event)
     return buildMetadata({
       title: "Không tìm thấy hoạt động",
@@ -36,7 +41,7 @@ export async function generateMetadata({ params }: EventPageProps): Promise<Meta
 
 export default async function EventPage({ params }: EventPageProps) {
   const { slug } = await params;
-  const event = getEvent(slug);
+  const event = await getEvent(slug);
   if (!event) notFound();
 
   return (

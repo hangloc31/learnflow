@@ -25,13 +25,18 @@ interface ArticlePageProps {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return getArticles().map((article) => ({ slug: article.slug }));
+export async function generateStaticParams() {
+  try {
+    const articles = await getArticles();
+    return articles.map((article) => ({ slug: article.slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: ArticlePageProps): Promise<Metadata> {
   const { slug } = await params;
-  const article = getArticle(slug);
+  const article = await getArticle(slug);
   if (!article)
     return buildMetadata({
       title: "Không tìm thấy bài viết",
@@ -47,7 +52,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
-  const article = getArticle(slug);
+  const article = await getArticle(slug);
   if (!article) notFound();
 
   return (

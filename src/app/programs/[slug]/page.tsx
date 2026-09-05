@@ -23,13 +23,18 @@ interface ProgramPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return getPrograms().map((program) => ({ slug: program.slug }));
+export async function generateStaticParams() {
+  try {
+    const programs = await getPrograms();
+    return programs.map((program) => ({ slug: program.slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: ProgramPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const program = getProgram(slug);
+  const program = await getProgram(slug);
   if (!program)
     return buildMetadata({
       title: "Không tìm thấy chương trình",
@@ -45,7 +50,7 @@ export async function generateMetadata({ params }: ProgramPageProps): Promise<Me
 
 export default async function ProgramDetailPage({ params }: ProgramPageProps) {
   const { slug } = await params;
-  const program = getProgram(slug);
+  const program = await getProgram(slug);
   if (!program) notFound();
 
   return (

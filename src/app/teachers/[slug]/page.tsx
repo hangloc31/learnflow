@@ -13,13 +13,18 @@ interface TeacherPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export function generateStaticParams() {
-  return getTeachers().map((teacher) => ({ slug: teacher.slug }));
+export async function generateStaticParams() {
+  try {
+    const teachers = await getTeachers();
+    return teachers.map((teacher) => ({ slug: teacher.slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: TeacherPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const teacher = getTeacher(slug);
+  const teacher = await getTeacher(slug);
   if (!teacher) return buildMetadata({ title: "Không tìm thấy giáo viên", description: "Hồ sơ không tồn tại.", path: `/teachers/${slug}` });
   return buildMetadata({
     title: teacher.name,
@@ -30,7 +35,7 @@ export async function generateMetadata({ params }: TeacherPageProps): Promise<Me
 
 export default async function TeacherPage({ params }: TeacherPageProps) {
   const { slug } = await params;
-  const teacher = getTeacher(slug);
+  const teacher = await getTeacher(slug);
   if (!teacher) notFound();
 
   return (

@@ -1,7 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { count, eq } from "drizzle-orm";
 import { handleLeadRoute } from "@/lib/leads/server";
-import { getDb, leadsTable } from "@/lib/leads/db";
+import { getDb } from "@/lib/leads/db";
 
 const validBody = {
   type: "trial",
@@ -24,17 +23,19 @@ function postRequest(body: unknown, ip = "203.0.113.10"): Request {
 }
 
 async function countRows(phone: string): Promise<number> {
-  // parameterized via Drizzle; never logs PII
-  const rows = await getDb().select({ n: count() }).from(leadsTable).where(eq(leadsTable.phone, phone));
-  return rows[0]?.n ?? 0;
+  const db = await getDb();
+  const row = (await db.get("SELECT COUNT(*) as n FROM leads WHERE phone = ?", [phone])) as { n: number } | undefined;
+  return row?.n ?? 0;
 }
 
-beforeEach(() => {
-  getDb().delete(leadsTable).run();
+beforeEach(async () => {
+  const db = await getDb();
+  await db.run("DELETE FROM leads");
 });
 
-afterEach(() => {
-  getDb().delete(leadsTable).run();
+afterEach(async () => {
+  const db = await getDb();
+  await db.run("DELETE FROM leads");
 });
 
 describe("POST /api/leads handler", () => {

@@ -1,4 +1,4 @@
-import { leadsTable, getDb } from "./db";
+import { getDb } from "./db";
 import { leadPayloadSchema } from "./schema";
 import { env } from "@/lib/env";
 
@@ -84,21 +84,25 @@ export async function handleLeadRoute(request: Request): Promise<Response> {
       // Console adapter: count only — never log PII.
       console.info("[leads] lead received (PII redacted)");
     } else {
-      const db = getDb();
-      await db.insert(leadsTable).values({
-        type: lead.type,
-        audience: lead.audience,
-        ageGroup: lead.ageGroup,
-        goal: lead.goal,
-        preferredFormat: lead.preferredFormat,
-        programInterest: lead.programInterest || null,
-        fullName: lead.fullName,
-        phone: lead.phone,
-        email: lead.email,
-        message: lead.message || null,
-        sourcePage: lead.sourcePage,
-        createdAt: new Date().toISOString(),
-      });
+      const db = await getDb();
+      await db.run(
+        `INSERT INTO leads (type, audience, age_group, goal, preferred_format, program_interest, full_name, phone, email, message, source_page, created_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          lead.type,
+          lead.audience,
+          lead.ageGroup,
+          lead.goal,
+          lead.preferredFormat,
+          lead.programInterest || null,
+          lead.fullName,
+          lead.phone,
+          lead.email,
+          lead.message || null,
+          lead.sourcePage,
+          new Date().toISOString(),
+        ]
+      );
     }
     await notifyByEmail();
     return json({ ok: true }, 200);

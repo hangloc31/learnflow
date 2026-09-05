@@ -15,6 +15,8 @@ export const env = {
     | "database"
     | "console",
   databaseUrl: optional("DATABASE_URL") ?? "file:./data/learnflow.db",
+  tursoDatabaseUrl: optional("TURSO_DATABASE_URL"),
+  tursoAuthToken: optional("TURSO_AUTH_TOKEN"),
   resendApiKey: optional("RESEND_API_KEY"),
   leadNotificationEmail: optional("LEAD_NOTIFICATION_EMAIL"),
 } as const;

@@ -20,7 +20,7 @@ const CATEGORY_LABEL: Record<string, string> = {
   "center-news": "Tin trung tâm",
 };
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Kiến thức & chia sẻ",
     description:
@@ -29,8 +29,8 @@ export function generateMetadata(): Metadata {
   });
 }
 
-export default function BlogPage() {
-  const articles = getArticles();
+export default async function BlogPage() {
+  const articles = await getArticles();
   const [lead, ...rest] = articles;
 
   return (

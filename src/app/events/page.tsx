@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 
 const TONES = ["bg-accent-soft", "bg-teal-soft", "bg-gold-soft", "bg-ink"] as const;
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Hoạt động & sự kiện",
     description:
@@ -19,8 +19,8 @@ export function generateMetadata(): Metadata {
   });
 }
 
-export default function EventsPage() {
-  const events = getEvents();
+export default async function EventsPage() {
+  const events = await getEvents();
 
   return (
     <>

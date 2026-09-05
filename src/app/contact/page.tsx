@@ -7,7 +7,7 @@ import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { ConsultationSection } from "@/components/sections/consultation-section";
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Liên hệ",
     description:
@@ -16,8 +16,8 @@ export function generateMetadata(): Metadata {
   });
 }
 
-export default function ContactPage() {
-  const branches = getBranches();
+export default async function ContactPage() {
+  const branches = await getBranches();
 
   return (
     <>

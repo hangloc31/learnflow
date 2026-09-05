@@ -8,7 +8,7 @@ import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ConsultationSection } from "@/components/sections/consultation-section";
 
-export function generateMetadata(): Metadata {
+export async function generateMetadata(): Promise<Metadata> {
   return buildMetadata({
     title: "Về chúng tôi",
     description:
@@ -44,7 +44,7 @@ const VALUES = [
   },
 ] as const;
 
-export default function AboutPage() {
+export default async function AboutPage() {
   return (
     <>
       <Section tone="base" className="py-12 lg:py-20">
@@ -97,7 +97,7 @@ export default function AboutPage() {
             description="Đúng như lộ trình học viên trải nghiệm — minh bạch để phụ huynh đồng hành."
           />
           <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {getJourneySteps().map((step, index) => (
+            {(await getJourneySteps()).map((step, index) => (
               <li key={step.id} className="rounded-[var(--radius-md)] border border-line bg-surface p-6">
                 <p className="font-display text-section font-semibold text-accent/30" aria-hidden="true">
                   {String(index + 1).padStart(2, "0")}

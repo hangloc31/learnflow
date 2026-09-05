@@ -36,11 +36,20 @@ export const metadata = buildMetadata({
 });
 
 // Static, content-driven homepage — all 14 sections (docs/architecture.md)
-export default function HomePage() {
-  const featured = getFeaturedPrograms();
-  const programs = featured.length >= 4 ? featured : getPrograms();
-  const faqs = getFaqs();
+export default async function HomePage() {
+  const featured = await getFeaturedPrograms();
+  const allPrograms = await getPrograms();
+  const programs = featured.length >= 4 ? featured : allPrograms;
+  const faqs = await getFaqs();
   const faqSchema = faqJsonLd(faqs);
+  const audiences = await getAudiences();
+  const statistics = await getStatistics();
+  const differentiators = await getDifferentiators();
+  const journeySteps = await getJourneySteps();
+  const teachers = await getTeachers();
+  const testimonials = await getTestimonials();
+  const events = await getEvents();
+  const articles = await getArticles();
 
   return (
     <>
@@ -51,37 +60,37 @@ export default function HomePage() {
       <Hero />
 
       {/* 02 — audience / program selector */}
-      <AudienceSelector audiences={getAudiences()} programs={getPrograms()} />
+      <AudienceSelector audiences={audiences} programs={allPrograms} />
 
       {/* 03 — trust / proof (placeholder statistics, clearly marked) */}
-      <Stats statistics={getStatistics()} />
+      <Stats statistics={statistics} />
 
       {/* 04 — why this center */}
-      <Differentiators items={getDifferentiators()} />
+      <Differentiators items={differentiators} />
 
       {/* 05 — programs */}
       <ProgramsShowcase programs={programs} />
 
       {/* 06 — learning journey */}
-      <Journey steps={getJourneySteps()} />
+      <Journey steps={journeySteps} />
 
       {/* 07 — classroom experience */}
       <ClassroomExperience />
 
       {/* 08 — teachers */}
-      <TeachersPreview teachers={getTeachers()} />
+      <TeachersPreview teachers={teachers} />
 
       {/* 09 — student outcomes */}
       <Outcomes />
 
       {/* 10 — testimonials */}
-      <TestimonialCarousel testimonials={getTestimonials()} />
+      <TestimonialCarousel testimonials={testimonials} />
 
       {/* 11 — events & activities */}
-      <EventsPreview events={getEvents()} />
+      <EventsPreview events={events} />
 
       {/* 12 — knowledge hub */}
-      <KnowledgeHub articles={getArticles()} />
+      <KnowledgeHub articles={articles} />
 
       {/* 13 — FAQ */}
       <FaqSection faqs={faqs} />

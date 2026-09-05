@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/content/site";
 import { getPrograms, getTeachers, getEvents, getArticles } from "@/lib/content";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url;
   const staticRoutes = [
     "",
@@ -21,11 +21,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: path === "" ? 1 : 0.7,
   }));
 
+  const [programs, teachers, events, articles] = await Promise.all([
+    getPrograms(),
+    getTeachers(),
+    getEvents(),
+    getArticles(),
+  ]);
+
   const dynamic = [
-    ...getPrograms().map((p) => ({ path: `/programs/${p.slug}` })),
-    ...getTeachers().map((t) => ({ path: `/teachers/${t.slug}` })),
-    ...getEvents().map((e) => ({ path: `/events/${e.slug}` })),
-    ...getArticles().map((a) => ({ path: `/blog/${a.slug}` })),
+    ...programs.map((p) => ({ path: `/programs/${p.slug}` })),
+    ...teachers.map((t) => ({ path: `/teachers/${t.slug}` })),
+    ...events.map((e) => ({ path: `/events/${e.slug}` })),
+    ...articles.map((a) => ({ path: `/blog/${a.slug}` })),
   ].map(({ path }) => ({
     url: `${base}${path}`,
     lastModified: new Date(),
