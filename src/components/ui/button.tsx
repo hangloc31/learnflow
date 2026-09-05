@@ -12,7 +12,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-accent text-white hover:bg-accent-strong shadow-soft hover:shadow-lift",
+          "bg-accent-deep text-white hover:bg-accent-strong shadow-soft hover:shadow-lift",
         secondary:
           "bg-ink text-paper hover:bg-ink-soft shadow-soft",
         ghost:

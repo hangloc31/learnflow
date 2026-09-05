@@ -67,7 +67,7 @@ export function AudienceSelector({ audiences, programs }: AudienceSelectorProps)
                 className={cn(
                   "inline-flex min-h-11 items-center gap-2 rounded-full border px-5 py-2.5 text-small font-semibold transition-colors duration-[var(--duration-fast)]",
                   active
-                    ? "border-accent bg-accent text-white"
+                    ? "border-accent-deep bg-accent-deep text-white"
                     : "border-line bg-surface text-ink hover:border-accent hover:text-accent",
                 )}
               >

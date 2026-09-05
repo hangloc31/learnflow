@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { siteConfig } from "@/content/site";
+import { ButtonLink } from "@/components/ui/button";
 
 /**
  * Sticky mobile CTA — appears below `lg` only, after the hero has scrolled past,
@@ -32,12 +32,9 @@ export function MobileCta() {
       }`}
     >
       <div className="flex items-center gap-3">
-        <Link
-          href="/trial"
-          className="inline-flex min-h-12 flex-1 items-center justify-center rounded-full bg-accent px-6 font-semibold text-white"
-        >
+        <ButtonLink href="/trial" size="lg" className="flex-1">
           {siteConfig.ctas.trial}
-        </Link>
+        </ButtonLink>
         <a
           href={siteConfig.contact.phoneHref}
           aria-label={`Gọi hotline ${siteConfig.contact.phone}`}

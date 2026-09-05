@@ -27,7 +27,7 @@ export function FinalCta() {
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <ButtonLink href="/trial" size="lg">
+            <ButtonLink href="/trial" size="lg" className="ring-1 ring-accent">
               {siteConfig.ctas.trial}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </ButtonLink>

@@ -8,6 +8,7 @@ import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
+import { ArticleBody } from "@/components/article-body";
 
 const CATEGORY_LABEL: Record<string, string> = {
   "learning-tips": "Mẹo học tiếng Anh",
@@ -69,16 +70,20 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
           <p className="mt-8 text-subheading text-ink-soft">{article.excerpt}</p>
 
-          <div className="mt-10 rounded-[var(--radius-md)] border border-dashed border-muted/50 bg-surface p-6 text-center">
-            <p className="text-small font-semibold text-ink">Nội dung bài viết đầy đủ</p>
-            <p className="mt-1.5 text-small">
-              Bài viết này đang dùng dữ liệu mẫu. Thay phần thân bằng nội dung biên tập thực tế
-              khi có — kiến trúc và SEO đã sẵn sàng.
-            </p>
-            <Badge variant="neutral" className="mt-3">
-              TODO(content): body content
-            </Badge>
-          </div>
+          {article.body && article.body.length > 0 ? (
+            <ArticleBody blocks={article.body} />
+          ) : (
+            <div className="mt-10 rounded-[var(--radius-md)] border border-dashed border-muted/50 bg-surface p-6 text-center">
+              <p className="text-small font-semibold text-ink">Nội dung bài viết đầy đủ</p>
+              <p className="mt-1.5 text-small">
+                Bài viết này đang dùng dữ liệu mẫu. Thay phần thân bằng nội dung biên tập thực tế
+                khi có — kiến trúc và SEO đã sẵn sàng.
+              </p>
+              <Badge variant="neutral" className="mt-3">
+                TODO(content): body content
+              </Badge>
+            </div>
+          )}
 
           <div className="mt-10 border-t border-line pt-6">
             <ButtonLink href="/blog" variant="ghost">

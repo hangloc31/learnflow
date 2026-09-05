@@ -20,8 +20,9 @@ Vietnamese diacritic rendering.
 | `--color-ink-soft` | `#43566B` | body text |
 | `--color-muted` | `#6B7A8C` | captions, meta |
 | `--color-line` | `#E7E0D4` | hairline borders |
-| `--color-accent` | `#E8603C` | primary CTA, highlights |
+| `--color-accent` | `#E8603C` | decorative accent, highlights, icon tints |
 | `--color-accent-strong` | `#C74B2D` | hover/active accent |
+| `--color-accent-deep` | `#B34126` | primary CTA fill, active chips — passes AA (≥ 4.5:1 with white text, ≥ 3:1 against paper) |
 | `--color-accent-soft` | `#FBEAE4` | accent tint backgrounds |
 | `--color-teal` | `#177E70` | secondary accent, success |
 | `--color-teal-soft` | `#E3F0ED` | teal tint backgrounds |
@@ -63,7 +64,9 @@ Fonts: `--font-display` (Lora), `--font-sans` (Be Vietnam Pro) via `next/font`, 
 ## Component variants (cva)
 
 - **Button**: `variant: primary | secondary | ghost` × `size: sm | md | lg`; pill radius;
-  min touch target 44px; focus ring `--color-accent` offset 2px.
+  min touch target 44px; focus ring `--color-accent` offset 2px. Primary uses
+  `--color-accent-deep` fill (bright `--color-accent` fails contrast as a filled surface);
+  on dark `inverse` sections add `ring-1 ring-accent` to preserve the 3:1 boundary.
 - **Card**: `variant: flat (border only) | raised (border+soft shadow) | interactive (+lift hover)`.
 - **Badge**: `variant: accent | teal | gold | neutral`.
 - **Section**: padding + optional alternate background tone (`tone: base | soft | inverse`).

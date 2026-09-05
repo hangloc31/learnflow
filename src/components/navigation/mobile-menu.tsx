@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { mainNav } from "@/content/navigation";
 import { siteConfig } from "@/content/site";
+import { ButtonLink } from "@/components/ui/button";
 
 /**
  * Mobile navigation — full-screen Radix dialog, closes on route change
@@ -105,12 +106,9 @@ export function MobileMenu() {
           </nav>
 
           <div className="mt-6 flex flex-col gap-3">
-            <Link
-              href="/trial"
-              className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-accent px-6 font-semibold text-white"
-            >
+            <ButtonLink href="/trial" size="lg" className="w-full">
               {siteConfig.ctas.trial}
-            </Link>
+            </ButtonLink>
             <a
               href={siteConfig.contact.phoneHref}
               className="inline-flex min-h-12 w-full items-center justify-center rounded-full border border-line bg-surface px-6 font-semibold text-ink"

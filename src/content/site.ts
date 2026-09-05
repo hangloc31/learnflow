@@ -2,7 +2,6 @@ import { z } from "zod";
 import { branchSchema } from "@/types/content";
 import { env } from "@/lib/env";
 
-
 /**
  * Site-wide configuration — brand, contact, CTA copy.
  * TODO(content): Replace brand name, hotline, email and address with verified business data.

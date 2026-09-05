@@ -90,6 +90,27 @@ export const testimonialSchema = z.object({
   placeholder: z.boolean().default(true),
 });
 
+export const blockSchema = z.discriminatedUnion("type", [
+  z.object({ type: z.literal("heading"), level: z.number().int().min(2).max(4), text: z.string().min(1) }),
+  z.object({
+    type: z.literal("paragraph"),
+    text: z.string().min(1),
+  }),
+  z.object({
+    type: z.literal("image"),
+    src: z.string().min(1),
+    alt: z.string().min(1),
+    caption: z.string().optional(),
+  }),
+  z.object({
+    type: z.literal("list"),
+    style: z.enum(["bullet", "numbered"]),
+    items: z.array(z.string().min(1)).min(1),
+  }),
+  z.object({ type: z.literal("divider") }),
+]);
+export type Block = z.infer<typeof blockSchema>;
+
 export const articleSchema = z.object({
   slug: z.string().min(1).regex(/^[a-z0-9-]+$/),
   title: z.string().min(1),
@@ -98,6 +119,7 @@ export const articleSchema = z.object({
   readingTimeMinutes: z.number().int().positive(),
   publishedAt: z.string().date(),
   placeholder: z.boolean().default(true),
+  body: z.array(blockSchema).optional(),
 });
 
 export const eventSchema = z.object({

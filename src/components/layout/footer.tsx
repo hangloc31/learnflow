@@ -52,7 +52,7 @@ export function Footer() {
 
         <div className="mt-12 flex flex-col gap-2 border-t border-line pt-6 text-caption text-muted md:flex-row md:items-center md:justify-between">
           <p>
-            © {new Date().getFullYear()} {siteConfig.name}. Bảo lưu mọi quyền.
+            © {2026} {siteConfig.name}. Bảo lưu mọi quyền.
           </p>
           <p>
             {/* Draft notice until real business data is verified — remove at launch (TODO(content)) */}

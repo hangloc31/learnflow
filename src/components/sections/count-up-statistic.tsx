@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
 import type { Statistic } from "@/types/content";
 
+const formatter = new Intl.NumberFormat("vi-VN");
+
 /** Count-up: animates once when visible; renders instantly under prefers-reduced-motion. */
 export function CountUpStatistic({ statistic }: { statistic: Statistic }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -36,7 +38,7 @@ export function CountUpStatistic({ statistic }: { statistic: Statistic }) {
 
   return (
     <span ref={ref} className="tabular-nums">
-      {display.toLocaleString("vi-VN")}
+      {formatter.format(display)}
       {statistic.suffix ?? ""}
     </span>
   );
