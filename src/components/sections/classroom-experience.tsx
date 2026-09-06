@@ -1,4 +1,5 @@
-import { Camera } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Camera } from "lucide-react";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -7,36 +8,44 @@ import { Reveal } from "@/components/motion/reveal";
 interface Moment {
   label: string;
   caption: string;
-  tone: "accent" | "teal" | "gold" | "ink";
-  ratio: "tall" | "wide" | "square";
+  /** Local stock illustration — swap the file with consented classroom photography later. */
+  src: string;
 }
 
 /**
- * Editorial collage placeholder slots — docs/asset-inventory.md.
- * TODO(assets): replace tones with real classroom photography (consented, candid).
+ * Uniform editorial grid — every cell shares one ratio so the section reads
+ * in order 1→5 on any screen (docs/asset-inventory.md).
+ * Photos are labelled illustrations until consented classroom shots exist.
  */
 const MOMENTS: Moment[] = [
-  { label: "Hoạt động nhóm", caption: "Học viên làm dự án cùng nhau", tone: "accent", ratio: "tall" },
-  { label: "Thuyết trình", caption: "Trình bày sản phẩm cuối dự án", tone: "ink", ratio: "wide" },
-  { label: "Trò chơi ngôn ngữ", caption: "Từ vựng qua chơi — lớp mầm non", tone: "gold", ratio: "square" },
-  { label: "Lớp học online", caption: "Tương tác trực tiếp với giáo viên", tone: "teal", ratio: "tall" },
-  { label: "Câu lạc bộ nói", caption: "Speaking Club cuối tháng", tone: "accent", ratio: "wide" },
+  {
+    label: "Hoạt động nhóm",
+    caption: "Học viên làm dự án cùng nhau",
+    src: "/images/classroom-group.jpg",
+  },
+  {
+    label: "Thuyết trình",
+    caption: "Trình bày sản phẩm cuối dự án",
+    src: "/images/classroom-presentation.jpg",
+  },
+  {
+    label: "Trò chơi ngôn ngữ",
+    caption: "Từ vựng qua chơi — lớp mầm non",
+    src: "/images/classroom-games.jpg",
+  },
+  {
+    label: "Lớp học online",
+    caption: "Tương tác trực tiếp với giáo viên",
+    src: "/images/classroom-online.jpg",
+  },
+  {
+    label: "Câu lạc bộ nói",
+    caption: "Speaking Club cuối tháng",
+    src: "/images/classroom-club.jpg",
+  },
 ];
 
-const TONE_BG: Record<Moment["tone"], string> = {
-  accent: "bg-accent-soft",
-  teal: "bg-teal-soft",
-  gold: "bg-gold-soft",
-  ink: "bg-ink",
-};
-
-const RATIO: Record<Moment["ratio"], string> = {
-  tall: "aspect-[3/4]",
-  wide: "aspect-[4/3]",
-  square: "aspect-square",
-};
-
-/** Section 07 — classroom experience: image-driven collage, not a 3-column gallery. */
+/** Section 07 — classroom experience: uniform image grid + closing CTA cell. */
 export function ClassroomExperience() {
   return (
     <Section tone="soft" aria-labelledby="classroom-title">
@@ -50,38 +59,54 @@ export function ClassroomExperience() {
           />
           <p className="flex items-center gap-2 text-caption uppercase text-muted">
             <Camera className="h-4 w-4" aria-hidden="true" />
-            Ảnh thật sẽ thay thế khối minh họa
+            Ảnh minh họa — ảnh lớp thật sẽ thay thế
           </p>
         </div>
 
-        <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-3">
           {MOMENTS.map((moment, index) => (
-            <Reveal
-              key={moment.label}
-              delay={Math.min(index * 0.06, 0.24)}
-              className={
-                moment.ratio === "tall"
-                  ? "row-span-2"
-                  : moment.ratio === "wide"
-                    ? "col-span-2"
-                    : ""
-              }
-            >
-              <figure
-                className={`flex h-full ${RATIO[moment.ratio]} ${TONE_BG[moment.tone]} overflow-hidden rounded-[var(--radius-md)] border border-line`}
-              >
-                {/* TODO(assets): <Image> with real photography; keep captions as alt text */}
-                <figcaption className="m-auto max-w-[16ch] px-4 text-center text-small font-medium text-ink-soft">
-                  {moment.caption}
+            <Reveal key={moment.label} delay={Math.min(index * 0.06, 0.24)} className="h-full">
+              <figure className="group relative h-full aspect-[4/3] overflow-hidden rounded-[var(--radius-md)] border border-line">
+                <Image
+                  src={moment.src}
+                  alt={`${moment.label}: ${moment.caption}`}
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-[var(--duration-base)] ease-[var(--ease-out-expo)] group-hover:scale-105"
+                />
+                <span className="absolute left-3 top-3 rounded-full bg-ink/60 px-2.5 py-1 text-caption font-semibold text-paper backdrop-blur-sm">
+                  Ảnh minh họa
+                </span>
+                <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/80 to-transparent px-4 pb-3.5 pt-10 text-left">
+                  <span className="block text-small font-semibold text-paper">{moment.label}</span>
+                  <span className="mt-0.5 block text-caption text-paper/80">{moment.caption}</span>
                 </figcaption>
               </figure>
             </Reveal>
           ))}
-        </div>
 
-        <p className="mt-6 text-caption text-muted">
-          Khối màu là vị trí ảnh minh họa — thay bằng ảnh lớp học thật khi có tư liệu.
-        </p>
+          <Reveal delay={0.3} className="h-full">
+            <a
+              href="/trial"
+              className="group flex h-full min-h-44 flex-col justify-center rounded-[var(--radius-md)] border border-accent/40 bg-ink p-6 transition-colors hover:border-accent lg:p-8"
+              aria-label="Cho con trải nghiệm một buổi học thử"
+            >
+              <span className="font-display text-subheading font-semibold text-paper">
+                Cho con trải nghiệm 1 buổi
+              </span>
+              <span className="mt-2 text-small text-paper/70">
+                Học thử miễn phí sau buổi test 20 phút — đúng lớp vừa sức.
+              </span>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-small font-semibold text-gold">
+                Đăng ký học thử
+                <ArrowRight
+                  className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </span>
+            </a>
+          </Reveal>
+        </div>
       </Container>
     </Section>
   );

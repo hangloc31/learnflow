@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { EASE_OUT_EXPO, STAGGER_STEP } from "@/lib/motion";
-import { Sparkles, TrendingUp, MessagesSquare } from "lucide-react";
+import { ClipboardCheck, Users } from "lucide-react";
 
 const container = {
   hidden: {},
@@ -14,8 +15,8 @@ const item = {
 };
 
 /**
- * Hero visual — abstract placeholder composition (docs/asset-inventory.md):
- * TODO(assets): replace with real classroom photography; never implies real students.
+ * Hero visual — real-feeling illustration (docs/asset-inventory.md):
+ * swap the file with consented classroom photography later.
  */
 export function HeroVisual() {
   return (
@@ -24,56 +25,48 @@ export function HeroVisual() {
       initial="hidden"
       animate="visible"
       className="relative mx-auto w-full max-w-md lg:max-w-none"
-      aria-hidden="true"
     >
-      {/* backdrop panel */}
+      {/* photo panel */}
       <motion.div
         variants={item}
-        className="relative aspect-[4/5] overflow-hidden rounded-[var(--radius-lg)] bg-accent-soft sm:aspect-[5/5]"
+        className="relative aspect-[4/3] overflow-hidden rounded-[var(--radius-lg)] border border-line shadow-soft lg:aspect-[5/4]"
       >
-        <svg viewBox="0 0 400 500" className="h-full w-full" role="presentation">
-          <circle cx="320" cy="90" r="140" fill="var(--color-gold-soft)" />
-          <circle cx="60" cy="420" r="110" fill="var(--color-teal-soft)" />
-          <path d="M0 330 C 120 260, 280 420, 400 320 L 400 500 L 0 500 Z" fill="var(--color-surface)" opacity="0.75" />
-          <rect x="52" y="120" width="120" height="8" rx="4" fill="var(--color-accent)" opacity="0.85" />
-          <rect x="52" y="144" width="76" height="8" rx="4" fill="var(--color-accent)" opacity="0.45" />
-        </svg>
+        <Image
+          src="/images/hero-kid-teacher.jpg"
+          alt="Cô giáo kèm riêng một học viên trong lớp học"
+          fill
+          priority
+          sizes="(max-width: 1024px) 100vw, 45vw"
+          className="object-cover"
+        />
+        <span className="absolute left-4 top-4 rounded-full bg-ink/60 px-2.5 py-1 text-caption font-semibold text-paper backdrop-blur-sm">
+          Ảnh minh họa
+        </span>
 
-        {/* primary floating card — static after entrance (no infinite float) */}
+        {/* primary floating card — the 20-minute promise */}
         <motion.div
           variants={item}
-          className="absolute bottom-6 left-6 right-6 rounded-[var(--radius-md)] border border-line bg-surface/95 p-4 shadow-lift backdrop-blur-sm sm:right-auto sm:w-64"
+          className="absolute bottom-4 left-4 right-4 rounded-[var(--radius-md)] border border-line bg-surface/95 p-4 shadow-lift backdrop-blur-sm sm:right-auto sm:w-64"
         >
           <p className="flex items-center gap-2 text-caption font-semibold uppercase text-accent-strong">
-            <MessagesSquare className="h-3.5 w-3.5" aria-hidden="true" />
-            Lớp học đang diễn ra
+            <ClipboardCheck className="h-3.5 w-3.5" aria-hidden="true" />
+            Test đầu vào miễn phí
           </p>
           <p className="mt-1.5 font-display text-body font-semibold text-ink">
-            Speaking Club — chủ đề “Giới thiệu công việc”
+            20 phút biết con đang ở đâu
           </p>
-          <p className="mt-1 text-small text-muted">Nhóm 8 học viên · 45 phút</p>
+          <p className="mt-1 text-small text-muted">Kèm báo cáo điểm mạnh · điểm cần cải thiện</p>
         </motion.div>
       </motion.div>
 
-      {/* outcome chip */}
+      {/* class-size chip */}
       <motion.div
         variants={item}
         className="absolute -right-2 top-8 rounded-[var(--radius-md)] border border-line bg-surface px-4 py-3 shadow-soft sm:-right-6"
       >
         <p className="flex items-center gap-2 text-small font-semibold text-teal">
-          <TrendingUp className="h-4 w-4" aria-hidden="true" />
-          Tiến bộ được đo theo chặng
-        </p>
-      </motion.div>
-
-      {/* start chip */}
-      <motion.div
-        variants={item}
-        className="absolute -left-2 top-1/3 rounded-full border border-line bg-ink px-4 py-2 text-small font-semibold text-paper shadow-soft sm:-left-6"
-      >
-        <p className="flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-gold" aria-hidden="true" />
-          Học thử miễn phí
+          <Users className="h-4 w-4" aria-hidden="true" />
+          Lớp tối đa 12 bạn
         </p>
       </motion.div>
     </motion.div>

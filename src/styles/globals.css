@@ -68,6 +68,26 @@
 }
 
 @layer base {
+  /* Radix accordion height animation — Accordion.Content references these by
+   * name (animate-[accordion-down...]/[accordion-up...]). They MUST exist:
+   * without them no animationend fires and closed content never unmounts. */
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+
   html {
     scroll-behavior: smooth;
   }

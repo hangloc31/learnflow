@@ -27,6 +27,18 @@ describe("FAQ accordion", () => {
     expect(screen.getByText(/từ 4 tuổi trở lên/i)).toBeVisible();
   });
 
+  it("collapses an open answer when its question is clicked again", async () => {
+    const user = userEvent.setup();
+    render(<FaqSection faqs={mockFaqs} />);
+
+    const trigger = screen.getByText(/Trung tâm nhận học viên từ mấy tuổi\?/i);
+    await user.click(trigger);
+    expect(screen.getByText(/từ 4 tuổi trở lên/i)).toBeVisible();
+
+    await user.click(trigger);
+    expect(screen.queryByText(/từ 4 tuổi trở lên/i)).not.toBeInTheDocument();
+  });
+
   it("never leaks internal TODO markers to parents", () => {
     render(<FaqSection faqs={mockFaqs} />);
     expect(document.body.textContent).not.toContain("TODO(content)");
