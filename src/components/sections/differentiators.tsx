@@ -34,10 +34,16 @@ export function Differentiators({ items }: { items: Differentiator[] }) {
           <div className="lg:sticky lg:top-28 lg:self-start">
             <SectionHeading
               id="differentiators-title"
-              eyebrow="Vì sao chọn chúng tôi"
-              title="Một hệ thống giáo dục, không chỉ là những buổi học"
-              description="Chúng tôi xây dựng mọi thứ quanh một câu hỏi: điều gì thực sự giúp học viên tiến bộ — và làm tốt điều đó mỗi ngày."
+              eyebrow="Vì sao ba mẹ yên tâm"
+              title="Con được hiểu rõ trước khi được dạy"
+              description="Mọi bé đều bắt đầu bằng test 20 phút, học lớp tối đa 12 bạn và có báo cáo tiến bộ định kỳ — ba mẹ luôn biết con đang ở đâu."
             />
+            <a
+              href="#consultation"
+              className="mt-6 inline-flex min-h-11 items-center rounded-full bg-ink px-6 text-small font-semibold text-paper hover:bg-ink-soft"
+            >
+              Cho con test thử miễn phí
+            </a>
           </div>
 
           <ol className="divide-y divide-line border-y border-line">

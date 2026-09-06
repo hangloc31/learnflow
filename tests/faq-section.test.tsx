@@ -27,8 +27,13 @@ describe("FAQ accordion", () => {
     expect(screen.getByText(/từ 4 tuổi trở lên/i)).toBeVisible();
   });
 
-  it("keeps placeholder-marked answers visually honest", () => {
+  it("never leaks internal TODO markers to parents", () => {
     render(<FaqSection faqs={mockFaqs} />);
-    expect(document.body.textContent).toContain("TODO(content)");
+    expect(document.body.textContent).not.toContain("TODO(content)");
+  });
+
+  it("hands off to the single consultation flow", () => {
+    render(<FaqSection faqs={mockFaqs} />);
+    expect(screen.getByRole("link", { name: /tư vấn miễn phí/i }).getAttribute("href")).toBe("#consultation");
   });
 });

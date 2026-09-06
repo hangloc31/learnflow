@@ -64,7 +64,7 @@ export function ProgramCard({ program, index }: ProgramCardData) {
           }`}
           aria-label={`Xem chi tiết chương trình ${program.name}`}
         >
-          Chi tiết
+          Xem lộ trình {program.name}
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
         </Link>
       </article>
@@ -80,9 +80,9 @@ export function ProgramsShowcase({ programs }: { programs: Program[] }) {
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading
             id="programs-title"
-            eyebrow="Chương trình học"
-            title="Một lộ trình cho từng chặng đời"
-            description="Từ tiếng Anh đầu đời đến IELTS — mỗi chương trình có mục tiêu đầu ra rõ ràng và lộ trình được đo bằng kết quả."
+            eyebrow="Bước 2 — 3 chặng chính"
+            title="Ba chặng lớn từ 4 tuổi đến IELTS"
+            description="Mỗi chặng có đầu ra rõ ràng. Kết quả test sẽ xếp con vào đúng lớp — xem trước tại đây, chi tiết đầy đủ ở trang chương trình."
           />
           <ButtonLink href="/programs" variant="ghost" className="self-start">
             Tất cả chương trình

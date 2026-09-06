@@ -19,7 +19,7 @@ const faqs: Faq[] = [
     group: "enrollment",
     question: "Kiểm tra trình độ đầu vào có mất phí không?",
     answer:
-      "Bài kiểm tra xếp lớp miễn phí, kéo dài khoảng 20–30 phút, kết hợp trò chuyện cùng phụ huynh về mục tiêu học tập. Kết quả được dùng để xếp lớp và thiết kế lộ trình. (TODO(content): xác nhận chính sách với trung tâm)",
+      "Bài test xếp lớp miễn phí, kéo dài khoảng 20 phút, kết hợp trò chuyện cùng phụ huynh về mục tiêu học tập. Kết quả được dùng để xếp lớp và thiết kế lộ trình.",
     placeholder: true,
   },
   {
@@ -27,7 +27,7 @@ const faqs: Faq[] = [
     group: "logistics",
     question: "Mỗi lớp có bao nhiêu học viên?",
     answer:
-      "Lớp học giới hạn tối đa 12 học viên để đảm bảo mỗi em được phát biểu và được thầy cô theo sát trong buổi học. (TODO(content): xác nhận sĩ số thực tế)",
+      "Lớp học giới hạn tối đa 12 học viên để đảm bảo mỗi em được phát biểu và được thầy cô theo sát trong buổi học.",
     placeholder: true,
   },
   {
@@ -35,7 +35,7 @@ const faqs: Faq[] = [
     group: "enrollment",
     question: "Học phí như thế nào?",
     answer:
-      "Học phí tùy thuộc chương trình, số buổi và hình thức học (trung tâm hoặc online). Bạn vui lòng để lại thông tin tư vấn hoặc gọi hotline để nhận bảng phí cập nhật theo lộ trình phù hợp.",
+      "Học phí tính theo chặng lộ trình của con: chương trình, số buổi mỗi tuần và học tại trung tâm hay online. Sau buổi test 20 phút, ba mẹ nhận bảng phí cho đúng lớp của con — không đóng gói chung chung.",
     placeholder: false,
   },
   {
@@ -43,7 +43,7 @@ const faqs: Faq[] = [
     group: "enrollment",
     question: "Có được học thử trước khi đăng ký không?",
     answer:
-      "Có. Học viên được đăng ký một buổi học thử miễn phí để trải nghiệm phương pháp và không khí lớp học trước khi quyết định. (TODO(content): xác nhận chính sách học thử)",
+      "Có. Sau buổi test, con được học thử một buổi miễn phí để trải nghiệm phương pháp và không khí lớp học trước khi ba mẹ quyết định.",
     placeholder: true,
   },
   {
@@ -59,7 +59,7 @@ const faqs: Faq[] = [
     group: "programs",
     question: "Đội ngũ giáo viên gồm những ai?",
     answer:
-      "Giáo viên Việt có chứng chỉ phương pháp giảng dạy tiếng Anh (CELTA/TEFL hoặc tương đương) kết hợp giáo viên bản ngữ cho các lớp giao tiếp và luyện thi. Hồ sơ từng giáo viên được công bố tại trang Đội ngũ giáo viên. (TODO(content): thay bằng mô tả đội ngũ thực tế)",
+      "Giáo viên Việt có chứng chỉ phương pháp giảng dạy tiếng Anh (CELTA/TEFL hoặc tương đương) kết hợp giáo viên bản ngữ cho các lớp giao tiếp và luyện thi. Hồ sơ từng giáo viên được công bố tại trang Đội ngũ giáo viên.",
     placeholder: true,
   },
   {
@@ -67,7 +67,7 @@ const faqs: Faq[] = [
     group: "logistics",
     question: "Lịch học như thế nào? Có học cuối tuần không?",
     answer:
-      "Có các khung giờ buổi tối trong tuần và cuối tuần (Thứ 7, Chủ nhật) cho học sinh đi học trên trường. Lịch cụ thể từng lớp được tư vấn theo thời gian biểu của học viên. (TODO(content): xác nhận lịch thực tế)",
+      "Có các khung giờ buổi tối trong tuần và cuối tuần (Thứ 7, Chủ nhật) cho học sinh đi học trên trường. Lịch cụ thể từng lớp được tư vấn theo thời gian biểu của con.",
     placeholder: true,
   },
 ];

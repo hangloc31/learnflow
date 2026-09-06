@@ -18,28 +18,27 @@ async function fillContactStep(user: ReturnType<typeof userEvent.setup>) {
   await user.type(screen.getByLabelText(/Email/i), "a@example.com");
 }
 
-describe("ConsultationForm — 5-step flow", () => {
+describe("ConsultationForm — 3-step flow", () => {
   it("blocks progression while step 1 is unanswered", async () => {
     const user = userEvent.setup();
     renderForm();
     await user.click(screen.getByRole("button", { name: /Tiếp tục/i }));
-    expect(screen.getByRole("alert")).toHaveTextContent(/Vui lòng chọn đối tượng/i);
-    expect(screen.getByText("Bạn đăng ký cho ai?")).toBeInTheDocument();
+    const alerts = screen.getAllByRole("alert");
+    expect(alerts.length).toBeGreaterThanOrEqual(1);
+    expect(screen.getByText("Con bạn đang ở chặng nào?")).toBeInTheDocument();
   });
 
   it("completes the full flow and shows the success state", async () => {
     const user = userEvent.setup();
     renderForm();
 
+    // Step 1: audience + goal on one screen.
     await user.click(screen.getByRole("radio", { name: /Học sinh tiểu học/i }));
-    await user.click(screen.getByRole("button", { name: /Tiếp tục/i }));
-
-    await user.click(screen.getByRole("radio", { name: /Lớp 3–4/i }));
-    await user.click(screen.getByRole("button", { name: /Tiếp tục/i }));
-
     await user.click(screen.getByRole("radio", { name: /Giao tiếp tự tin/i }));
     await user.click(screen.getByRole("button", { name: /Tiếp tục/i }));
 
+    // Step 2: age group + format on one screen.
+    await user.click(screen.getByRole("radio", { name: /Lớp 3–4/i }));
     await user.click(screen.getByRole("radio", { name: /Học tại trung tâm/i }));
     await user.click(screen.getByRole("button", { name: /Tiếp tục/i }));
 
@@ -55,11 +54,9 @@ describe("ConsultationForm — 5-step flow", () => {
     renderForm();
 
     await user.click(screen.getByRole("radio", { name: /Người lớn đi làm/i }));
-    await user.click(screen.getByRole("button", { name: /Tiếp tục/i }));
-    await user.click(screen.getByRole("radio", { name: /25–35 tuổi/i }));
-    await user.click(screen.getByRole("button", { name: /Tiếp tục/i }));
     await user.click(screen.getByRole("radio", { name: /Dùng tiếng Anh trong công việc/i }));
     await user.click(screen.getByRole("button", { name: /Tiếp tục/i }));
+    await user.click(screen.getByRole("radio", { name: /25–35 tuổi/i }));
     await user.click(screen.getByRole("radio", { name: /Học online/i }));
     await user.click(screen.getByRole("button", { name: /Tiếp tục/i }));
 

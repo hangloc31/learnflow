@@ -15,31 +15,31 @@ export function FinalCta() {
       <Container className="relative py-20 lg:py-28">
         <Reveal className="max-w-2xl">
           <p className="text-caption font-semibold uppercase text-gold">
-            Bước tiếp theo
+            Bước tiếp theo — giữ chỗ test miễn phí
           </p>
           <h2 id="final-cta-title" className="mt-4 text-hero font-semibold text-paper">
-            Hãy tìm hành trình tiếng Anh{" "}
-            <span className="font-display italic text-gold">phù hợp</span> — cho riêng bạn
+            Sau 20 phút, ba mẹ biết{" "}
+            <span className="font-display italic text-gold">chính xác con cần gì</span>
           </h2>
           <p className="mt-5 max-w-xl text-body text-paper/75">
-            Đặt lịch tư vấn miễn phí: chúng tôi sẽ kiểm tra trình độ, lắng nghe mục tiêu và
-            đề xuất lộ trình — không áp lực đăng ký.
+            Test miễn phí cho bé 4–15 tuổi, nhận lớp vừa sức và học phí rõ ràng — không
+            cần đăng ký trước, không áp lực.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <ButtonLink href="/trial" size="lg" className="ring-1 ring-accent">
-              {siteConfig.ctas.trial}
+            <ButtonLink href="/placement-test" size="lg" className="ring-1 ring-accent">
+              {siteConfig.ctas.placementTest} miễn phí
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </ButtonLink>
-            <ButtonLink href={siteConfig.contact.phoneHref} variant="ghost" size="lg" className="border-paper/30 bg-transparent text-paper hover:border-gold hover:text-gold">
+            <ButtonLink href="#consultation" variant="ghost" size="lg" className="border-paper/30 bg-transparent text-paper hover:border-gold hover:text-gold">
               <Phone className="h-4 w-4" aria-hidden="true" />
-              {siteConfig.contact.phone}
+              Để lại SĐT — gọi lại T2–T7
             </ButtonLink>
           </div>
 
           <p className="mt-6 text-small text-paper/50">
-            Hoặc <a href="/placement-test" className="underline underline-offset-4 hover:text-paper">kiểm tra trình độ online</a> —
-            mất 20 phút, miễn phí.
+            Mỗi tuần có 20 suất test miễn phí —{" "}
+            <a href="/placement-test" className="underline underline-offset-4 hover:text-paper">giữ chỗ 1 phút</a>.
           </p>
         </Reveal>
       </Container>

@@ -28,7 +28,8 @@ const FORMAT_LABEL: Record<Program["format"], string> = {
  * ≤ 2 taps from audience to relevant programs. Client island; no backend.
  */
 export function AudienceSelector({ audiences, programs }: AudienceSelectorProps) {
-  const [selected, setSelected] = useState<Audience["id"] | null>(null);
+  const defaultId = audiences.some((a) => a.id === "primary") ? "primary" : audiences[0]?.id ?? null;
+  const [selected, setSelected] = useState<Audience["id"] | null>(defaultId);
 
   const recommended = useMemo(() => {
     if (!selected) return [];
@@ -46,10 +47,14 @@ export function AudienceSelector({ audiences, programs }: AudienceSelectorProps)
       <Container>
         <SectionHeading
           id="audience-selector-title"
-          eyebrow="Bắt đầu từ đúng người"
-          title="Bạn đang tìm chương trình cho ai?"
-          description="Chọn một đối tượng để xem ngay chương trình phù hợp — hai chạm là có lộ trình."
+          eyebrow="Bước 1 — đúng người, đúng lớp"
+          title="Con bạn đang ở chặng nào?"
+          description="Chọn chặng tuổi của con để xem lộ trình gợi ý — kết quả test 20 phút sẽ chốt lớp cuối cùng."
         />
+
+        <p className="mt-4 text-small text-muted">
+          Bé 4–15 tuổi đi theo trục tuổi. Luyện thi IELTS và lớp online nằm ở bước mục tiêu trong form bên dưới.
+        </p>
 
         <div
           role="group"
@@ -102,6 +107,11 @@ export function AudienceSelector({ audiences, programs }: AudienceSelectorProps)
                     <Badge variant="teal">{FORMAT_LABEL[program.format]}</Badge>
                   </div>
                   <p className="mt-3 text-small">{program.tagline}</p>
+                  {program.outcomes?.[0] ? (
+                    <p className="mt-2 text-small text-muted">
+                      Đầu ra: {program.outcomes[0]}
+                    </p>
+                  ) : null}
                   <Link
                     href={`/programs/${program.slug}`}
                     className="mt-4 inline-flex min-h-11 items-center gap-1.5 text-small font-semibold text-accent-strong hover:text-accent"

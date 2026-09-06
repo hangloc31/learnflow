@@ -6,9 +6,9 @@ import { Section } from "@/components/ui/section";
 import { ConsultationForm } from "@/components/forms/consultation-form";
 
 const NEXT_STEPS = [
-  "Tư vấn viên gọi lại trong vòng 24 giờ (giờ hành chính)",
-  "Kiểm tra trình độ miễn phí — 20–30 phút",
-  "Nhận lộ trình đề xuất kèm học phí minh bạch",
+  "Tư vấn viên gọi lại trong 24 giờ (Thứ 2 – Thứ 7, giờ hành chính)",
+  "Kiểm tra trình độ miễn phí cho bé — 20 phút",
+  "Nhận lớp vừa sức kèm học phí rõ ràng theo lộ trình",
 ] as const;
 
 export interface ConsultationSectionProps {
@@ -28,11 +28,11 @@ export interface ConsultationSectionProps {
 export function ConsultationSection({
   leadType = "consultation",
   sourcePage,
-  title = "Đăng ký tư vấn miễn phí",
-  description = "Điền nhanh 5 bước — chúng tôi sẽ gọi lại và đề xuất lộ trình phù hợp nhất.",
+  title = "Nhận kết quả test và lộ trình cho con",
+  description = "3 bước khoảng 1 phút — chúng tôi gọi lại, test 20 phút rồi đề xuất lớp vừa sức nhất.",
 }: ConsultationSectionProps) {
   return (
-    <Section tone="soft" aria-labelledby="consultation-title" className="lg:py-24">
+    <Section tone="soft" aria-labelledby="consultation-title" id="consultation" className="lg:py-24">
       <Container>
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div className="lg:pt-4">

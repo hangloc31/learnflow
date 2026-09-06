@@ -39,9 +39,9 @@ export interface TeachersPreviewProps {
 export function TeachersPreview({
   teachers,
   viewAllHref = "/teachers",
-  eyebrow = "Đội ngũ giáo viên",
-  title = "Người đồng hành trên lộ trình",
-  description = "Giáo viên Việt với chứng chỉ phương pháp quốc tế kết hợp giáo viên bản ngữ — hồ sơ chi tiết tại trang từng giáo viên.",
+  eyebrow = "Thầy cô của con",
+  title = "Người theo sát con từng buổi",
+  description = "Giáo viên có chứng chỉ phương pháp quốc tế, lớp tối đa 12 bạn nên thầy cô nhớ điểm mạnh — điểm cần cải thiện của từng con.",
 }: TeachersPreviewProps) {
   return (
     <Section tone="base" aria-labelledby="teachers-title">
@@ -72,7 +72,7 @@ export function TeachersPreview({
                   ) : null}
                 </div>
                 <h3 className="mt-4 font-display text-body font-semibold text-ink">
-                  {teacher.name}
+                  {teacher.name.replace(" (placeholder)", "")}
                 </h3>
                 <p className="mt-1 text-small text-muted">{teacher.role}</p>
                 <p className="mt-3 flex items-start gap-2 text-small text-ink-soft">
@@ -82,9 +82,9 @@ export function TeachersPreview({
                 <Link
                   href={`/teachers/${teacher.slug}`}
                   className="mt-auto pt-4 text-small font-semibold text-accent-strong hover:text-accent"
-                  aria-label={`Xem hồ sơ giáo viên ${teacher.name}`}
+                  aria-label={`Xem hồ sơ giáo viên ${teacher.name.replace(" (placeholder)", "")}`}
                 >
-                  Hồ sơ chi tiết →
+                  Xem hồ sơ
                 </Link>
               </article>
             </Reveal>

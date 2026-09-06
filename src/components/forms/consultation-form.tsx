@@ -21,8 +21,8 @@ import { cn } from "@/lib/utils";
 type FormInput = typeof leadPayloadSchema._input;
 type Status = "idle" | "submitting" | "success" | { error: string };
 
-const STEP_TITLES = ["Đối tượng", "Độ tuổi", "Mục tiêu", "Hình thức", "Liên hệ"] as const;
-const LAST_STEP = 4;
+const STEP_TITLES = ["Bé & mục tiêu", "Lớp & hình thức", "Liên hệ"] as const;
+const LAST_STEP = 2;
 
 export interface ConsultationFormProps {
   leadType: LeadType;
@@ -74,10 +74,8 @@ export function ConsultationForm({ leadType, sourcePage }: ConsultationFormProps
   );
 
   const stepFields: (keyof FormInput)[][] = [
-    ["audience"],
-    ["ageGroup"],
-    ["goal"],
-    ["preferredFormat"],
+    ["audience", "goal"],
+    ["ageGroup", "preferredFormat"],
     ["fullName", "phone", "email"],
   ];
 
@@ -107,7 +105,7 @@ export function ConsultationForm({ leadType, sourcePage }: ConsultationFormProps
           Đã nhận thông tin của bạn!
         </h3>
         <p className="mx-auto mt-2 max-w-sm text-small">
-          Đội ngũ tư vấn sẽ liên hệ trong vòng 24 giờ. Nếu cần hỗ trợ ngay, hãy gọi hotline:
+          Đội ngũ tư vấn sẽ liên hệ trong 24 giờ (Thứ 2 – Thứ 7, giờ hành chính). Nếu cần hỗ trợ ngay, hãy gọi hotline:
         </p>
         <a
           href={siteConfig.contact.phoneHref}
@@ -169,101 +167,97 @@ export function ConsultationForm({ leadType, sourcePage }: ConsultationFormProps
         </div>
       ) : null}
 
-      {/* step 1 — audience */}
+      {/* step 1 — audience + goal (one screen, one story) */}
       {step === 0 ? (
-        <fieldset className="mt-6">
-          <legend className="font-display text-subheading font-semibold text-ink">
-            Bạn đăng ký cho ai?
-          </legend>
-          <div className="mt-4 grid gap-2.5">
-            {audienceOptions.map((option) => (
-              <ChipRadio
-                key={option.value}
-                name="audience"
-                value={option.value}
-                checked={audience === option.value}
-                onChange={() => {
-                  setValue("audience", option.value, { shouldValidate: true });
-                  setValue("ageGroup", "");
-                }}
-                label={option.label}
-                hint={option.hint}
-              />
-            ))}
-          </div>
-          <FieldError id="audience-error" message={errors.audience?.message} />
-        </fieldset>
+        <div className="mt-6 space-y-7">
+          <fieldset>
+            <legend className="font-display text-subheading font-semibold text-ink">
+              Con bạn đang ở chặng nào?
+            </legend>
+            <div className="mt-4 grid gap-2.5">
+              {audienceOptions.map((option) => (
+                <ChipRadio
+                  key={option.value}
+                  name="audience"
+                  value={option.value}
+                  checked={audience === option.value}
+                  onChange={() => {
+                    setValue("audience", option.value, { shouldValidate: true });
+                    setValue("ageGroup", "");
+                  }}
+                  label={option.label}
+                  hint={option.hint}
+                />
+              ))}
+            </div>
+            <FieldError id="audience-error" message={errors.audience?.message} />
+          </fieldset>
+          <fieldset>
+            <legend className="font-display text-subheading font-semibold text-ink">
+              Mong muốn lớn nhất cho con?
+            </legend>
+            <div className="mt-4 grid gap-2.5">
+              {goalOptions.map((option) => (
+                <ChipRadio
+                  key={option.value}
+                  name="goal"
+                  value={option.value}
+                  checked={goal === option.value}
+                  onChange={() => setValue("goal", option.value, { shouldValidate: true })}
+                  label={option.label}
+                />
+              ))}
+            </div>
+            <FieldError id="goal-error" message={errors.goal?.message} />
+          </fieldset>
+        </div>
       ) : null}
 
-      {/* step 2 — age group (dependent options) */}
+      {/* step 2 — age group + format */}
       {step === 1 ? (
-        <fieldset className="mt-6">
-          <legend className="font-display text-subheading font-semibold text-ink">
-            Độ tuổi / trình độ hiện tại?
-          </legend>
-          <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
-            {ageGroups.map((group) => (
-              <ChipRadio
-                key={group}
-                name="ageGroup"
-                value={group}
-                checked={ageGroup === group}
-                onChange={() => setValue("ageGroup", group, { shouldValidate: true })}
-                label={group}
-              />
-            ))}
-          </div>
-          <FieldError id="ageGroup-error" message={errors.ageGroup?.message} />
-        </fieldset>
+        <div className="mt-6 space-y-7">
+          <fieldset>
+            <legend className="font-display text-subheading font-semibold text-ink">
+              Lớp / trình độ hiện tại của con?
+            </legend>
+            <div className="mt-4 grid gap-2.5 sm:grid-cols-2">
+              {ageGroups.map((group) => (
+                <ChipRadio
+                  key={group}
+                  name="ageGroup"
+                  value={group}
+                  checked={ageGroup === group}
+                  onChange={() => setValue("ageGroup", group, { shouldValidate: true })}
+                  label={group}
+                />
+              ))}
+            </div>
+            <FieldError id="ageGroup-error" message={errors.ageGroup?.message} />
+          </fieldset>
+          <fieldset>
+            <legend className="font-display text-subheading font-semibold text-ink">
+              Ba mẹ muốn con học ở đâu?
+            </legend>
+            <div className="mt-4 grid gap-2.5">
+              {formatOptions.map((option) => (
+                <ChipRadio
+                  key={option.value}
+                  name="preferredFormat"
+                  value={option.value}
+                  checked={preferredFormat === option.value}
+                  onChange={() => setValue("preferredFormat", option.value, { shouldValidate: true })}
+                  label={option.label}
+                  hint={option.hint}
+                />
+              ))}
+            </div>
+            <FieldError id="preferredFormat-error" message={errors.preferredFormat?.message} />
+          </fieldset>
+        </div>
       ) : null}
 
-      {/* step 3 — goal */}
+      {/* step 3 — contact details */}
       {step === 2 ? (
-        <fieldset className="mt-6">
-          <legend className="font-display text-subheading font-semibold text-ink">
-            Mục tiêu học của bạn?
-          </legend>
-          <div className="mt-4 grid gap-2.5">
-            {goalOptions.map((option) => (
-              <ChipRadio
-                key={option.value}
-                name="goal"
-                value={option.value}
-                checked={goal === option.value}
-                onChange={() => setValue("goal", option.value, { shouldValidate: true })}
-                label={option.label}
-              />
-            ))}
-          </div>
-          <FieldError id="goal-error" message={errors.goal?.message} />
-        </fieldset>
-      ) : null}
-
-      {/* step 4 — format */}
-      {step === 3 ? (
-        <fieldset className="mt-6">
-          <legend className="font-display text-subheading font-semibold text-ink">
-            Hình thức học mong muốn?
-          </legend>
-          <div className="mt-4 grid gap-2.5">
-            {formatOptions.map((option) => (
-              <ChipRadio
-                key={option.value}
-                name="preferredFormat"
-                value={option.value}
-                checked={preferredFormat === option.value}
-                onChange={() => setValue("preferredFormat", option.value, { shouldValidate: true })}
-                label={option.label}
-                hint={option.hint}
-              />
-            ))}
-          </div>
-          <FieldError id="preferredFormat-error" message={errors.preferredFormat?.message} />
-        </fieldset>
-      ) : null}
-
-      {/* step 5 — contact details */}
-      {step === 4 ? (
         <fieldset className="mt-6 space-y-4">
           <legend className="font-display text-subheading font-semibold text-ink">
             Thông tin để chúng tôi liên hệ

@@ -10,8 +10,8 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { siteConfig } from "@/content/site";
 
 /**
- * Section 13 — FAQ. Radix Accordion (keyboard-safe, animated height only).
- * Placeholder answers are visible as-is; TODO(content) lives in the content module.
+ * Section 10 — FAQ. Radix Accordion (keyboard-safe, animated height only).
+ * Internal draft markers never render; the only CTA is the single #consultation flow.
  */
 export function FaqSection({ faqs }: { faqs: Faq[] }) {
   return (
@@ -20,9 +20,9 @@ export function FaqSection({ faqs }: { faqs: Faq[] }) {
         <SectionHeading
           id="faq-title"
           align="center"
-          eyebrow="Câu hỏi thường gặp"
-          title="Những điều phụ huynh hay hỏi"
-          description="Chưa thấy câu trả lời phù hợp? Gọi cho chúng tôi — tư vấn là miễn phí."
+          eyebrow="Trước khi test thử"
+          title="Ba mẹ thường hỏi gì trước buổi test?"
+          description="Chưa thấy câu trả lời phù hợp? Để lại SĐT bên dưới — tư vấn miễn phí."
         />
 
         <Accordion.Root type="single" collapsible className="mt-10">
@@ -44,11 +44,6 @@ export function FaqSection({ faqs }: { faqs: Faq[] }) {
                     />
                   </span>
                 </Accordion.Trigger>
-                {faq.placeholder ? (
-                  <span className="block pb-1 text-caption text-muted">
-                    TODO(content): câu trả lời đang chờ trung tâm xác nhận
-                  </span>
-                ) : null}
               </Accordion.Header>
               <Accordion.Content className="overflow-hidden data-[state=open]:animate-[accordion-down_var(--duration-base)_var(--ease-out-expo)] data-[state=closed]:animate-[accordion-up_var(--duration-base)_var(--ease-out-expo)]">
                 <p className="pb-5 pr-10 text-small">{faq.answer}</p>
@@ -59,12 +54,11 @@ export function FaqSection({ faqs }: { faqs: Faq[] }) {
 
         <div className="mt-8 flex flex-col items-center gap-3 text-center">
           <p className="text-small text-muted">Vẫn còn thắc mắc?</p>
-          {/* TODO(content): swap contact CTA copy with verified support-channel wording */}
           <Link
-            href="/contact"
+            href="#consultation"
             className="inline-flex min-h-11 items-center rounded-full border border-line bg-surface px-6 text-small font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
           >
-            {siteConfig.ctas.contact} — {siteConfig.ctas.consultation.toLowerCase()}
+            Để lại SĐT — {siteConfig.ctas.consultation.toLowerCase()}
           </Link>
         </div>
       </Container>

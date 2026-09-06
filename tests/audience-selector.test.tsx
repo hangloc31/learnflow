@@ -43,15 +43,19 @@ const mockPrograms: Program[] = [
 ];
 
 describe("AudienceSelector — program filtering", () => {
-  it("shows a prompt before selection", () => {
+  it("shows recommended programs by default (no dead empty state)", () => {
     render(<AudienceSelector audiences={mockAudiences} programs={mockPrograms} />);
-    expect(screen.getByText(/Chọn đối tượng phía trên/i)).toBeInTheDocument();
+    const details = screen.getAllByRole("link", { name: /Xem chi tiết chương trình/i });
+    expect(details.length).toBeGreaterThan(0);
+    expect(details[0]?.getAttribute("href")).toMatch(/^\/programs\//);
   });
 
-  it("reveals recommended programs after selection", async () => {
+  it("reveals recommended programs after re-selection", async () => {
     const user = userEvent.setup();
     render(<AudienceSelector audiences={mockAudiences} programs={mockPrograms} />);
 
+    // Deselect the default, then select again.
+    await user.click(screen.getByRole("button", { name: "Luyện thi IELTS" }));
     await user.click(screen.getByRole("button", { name: "Luyện thi IELTS" }));
 
     const details = screen.getAllByRole("link", { name: /Xem chi tiết chương trình/i });
@@ -59,11 +63,10 @@ describe("AudienceSelector — program filtering", () => {
     expect(details[0]?.getAttribute("href")).toMatch(/^\/programs\//);
   });
 
-  it("deselects when the same audience is clicked again", async () => {
+  it("shows the prompt only after deselecting the default", async () => {
     const user = userEvent.setup();
     render(<AudienceSelector audiences={mockAudiences} programs={mockPrograms} />);
 
-    await user.click(screen.getByRole("button", { name: "Luyện thi IELTS" }));
     await user.click(screen.getByRole("button", { name: "Luyện thi IELTS" }));
 
     expect(screen.getByText(/Chọn đối tượng phía trên/i)).toBeInTheDocument();

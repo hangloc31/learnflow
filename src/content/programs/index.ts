@@ -9,7 +9,7 @@ const programs: Program[] = [
     slug: "preschool",
     name: "Tiếng Anh Mầm non",
     audienceId: "preschool",
-    ageRange: "4–6 tuổi",
+    ageRange: "4–5 tuổi",
     tagline: "Bước đầu làm quen tiếng Anh bằng vui chơi",
     summary:
       "Trẻ tiếp xúc tiếng Anh tự nhiên qua bài hát, trò chơi, kể chuyện và hoạt động vận động — xây dựng phản xạ ngôn ngữ và tình yêu học tập từ sớm.",
@@ -55,7 +55,7 @@ const programs: Program[] = [
     slug: "secondary",
     name: "Tiếng Anh THCS",
     audienceId: "secondary",
-    ageRange: "11–14 tuổi",
+    ageRange: "12–15 tuổi",
     tagline: "Vượt trội trên trường, tự tin ngoài đời",
     summary:
       "Kết hợp củng cố chương trình học trên lớp với giao tiếp thực tế, giúp học sinh dẫn đầu điểm số và dùng tiếng Anh thành thạo ở mức A2–B1.",
@@ -78,7 +78,7 @@ const programs: Program[] = [
     slug: "highschool",
     name: "Tiếng Anh THPT & Thi chứng chỉ",
     audienceId: "highschool",
-    ageRange: "15–18 tuổi",
+    ageRange: "16–18 tuổi",
     tagline: "Điểm số cao và hành trang vào tương lai",
     summary:
       "Lộ trình song song: tối ưu kết quả thi trên trường và chuẩn bị các chứng chỉ quốc tế B1–B2 làm nền tảng cho đại học và du học.",

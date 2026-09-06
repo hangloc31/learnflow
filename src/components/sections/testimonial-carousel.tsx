@@ -32,8 +32,9 @@ export function TestimonialCarousel({ testimonials }: { testimonials: Testimonia
       <Container>
         <SectionHeading
           id="testimonials-title"
-          eyebrow="Phụ huynh & học viên nói gì"
-          title="Niềm tin được kể lại qua từng câu chuyện"
+          eyebrow="Ba mẹ kể lại"
+          title="Thay đổi nhỏ ở nhà, ba mẹ thấy đầu tiên"
+          description="Những câu chuyện minh họa định dạng — đang được thay bằng chia sẻ thật có sự đồng ý."
         />
 
         <div
@@ -52,7 +53,7 @@ export function TestimonialCarousel({ testimonials }: { testimonials: Testimonia
               “{current.quote}”
             </blockquote>
             <figcaption className="mt-6 border-t border-line pt-5">
-              <p className="font-semibold text-ink">{current.authorName}</p>
+              <p className="font-semibold text-ink">{current.authorName.replace(" (placeholder)", "")}</p>
               <p className="mt-1 text-small text-muted">
                 {ROLE_LABEL[current.authorRole]}
                 {current.learnerAge ? ` · ${current.learnerAge} tuổi` : ""} · {current.program}
@@ -103,7 +104,7 @@ export function TestimonialCarousel({ testimonials }: { testimonials: Testimonia
                         : "border-line bg-surface hover:border-accent/40"
                     }`}
                   >
-                    <p className="text-small font-semibold text-ink">{testimonial.authorName}</p>
+                    <p className="text-small font-semibold text-ink">{testimonial.authorName.replace(" (placeholder)", "")}</p>
                     <p className="mt-0.5 text-caption text-muted">
                       {ROLE_LABEL[testimonial.authorRole]} · {testimonial.program}
                     </p>
@@ -114,10 +115,11 @@ export function TestimonialCarousel({ testimonials }: { testimonials: Testimonia
           </ul>
         </div>
 
-        <p className="mt-6 text-caption text-muted">
-          Câu chuyện mẫu minh họa định dạng — sẽ thay bằng chia sẻ thật, có sự đồng ý của người
-          trong bài.
-        </p>
+        {testimonials.some((t) => t.placeholder) ? (
+          <p className="mt-6 text-caption text-muted">
+            Một số câu chuyện đang chờ xác nhận với phụ huynh — nội dung thật sẽ thay thế dần, có sự đồng ý.
+          </p>
+        ) : null}
       </Container>
     </Section>
   );

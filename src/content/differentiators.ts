@@ -35,7 +35,7 @@ const differentiators: Differentiator[] = [
     icon: "line-chart",
     title: "Tiến bộ minh bạch",
     description:
-      "Báo cáo định kỳ cho phụ huynh: điểm mạnh, điểm cần cải thiện và bước tiếp theo — không học 'mù'.",
+      "Báo cáo định kỳ cho phụ huynh: điểm mạnh, điểm cần cải thiện và bước tiếp theo — ba mẹ luôn biết con đang ở đâu.",
   },
 ];
 

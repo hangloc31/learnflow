@@ -1,7 +1,6 @@
-import { buildMetadata, organizationJsonLd, faqJsonLd } from "@/lib/seo";
+import { buildMetadata, faqJsonLd } from "@/lib/seo";
 import {
   getFaqs,
-  getStatistics,
   getDifferentiators,
   getJourneySteps,
   getPrograms,
@@ -9,66 +8,64 @@ import {
   getAudiences,
   getTeachers,
   getTestimonials,
-  getEvents,
-  getArticles,
 } from "@/lib/content";
 import { JsonLd } from "@/components/seo/json-ld";
 import { Hero } from "@/components/sections/hero";
 import { AudienceSelector } from "@/components/sections/audience-selector";
-import { Stats } from "@/components/sections/stats";
 import { Differentiators } from "@/components/sections/differentiators";
 import { ProgramsShowcase } from "@/components/sections/programs-showcase";
 import { Journey } from "@/components/sections/journey";
 import { ClassroomExperience } from "@/components/sections/classroom-experience";
 import { TeachersPreview } from "@/components/sections/teachers-preview";
-import { Outcomes } from "@/components/sections/outcomes";
 import { TestimonialCarousel } from "@/components/sections/testimonial-carousel";
-import { EventsPreview } from "@/components/sections/events-preview";
-import { KnowledgeHub } from "@/components/sections/knowledge-hub";
 import { FaqSection } from "@/components/sections/faq-section";
 import { FinalCta } from "@/components/sections/final-cta";
 import { ConsultationSection } from "@/components/sections/consultation-section";
 
 export const metadata = buildMetadata({
   description:
-    "Trung tâm tiếng Anh hiện đại với lộ trình cá nhân hóa theo chuẩn quốc tế — từ bé 4 tuổi đến người lớn. Học thử miễn phí, tư vấn lộ trình.",
+    "Cho bé 4–15 tuổi: kiểm tra trình độ miễn phí 20 phút theo chuẩn Cambridge YLE, xếp đúng lớp vừa sức và nhận lộ trình rõ ràng.",
   path: "/",
 });
 
-// Static, content-driven homepage — all 14 sections (docs/architecture.md)
+// Story-driven homepage for parents of kids 4–15 — 1 hero promise (20-min test),
+// 2-tap path, 3-step journey, 1 closing form. Placeholder proof sections stay
+// hidden until verified data exists.
 export default async function HomePage() {
   const featured = await getFeaturedPrograms();
   const allPrograms = await getPrograms();
-  const programs = featured.length >= 4 ? featured : allPrograms;
+  // Homepage shows max 3 representative paths; full list lives on /programs.
+  const programs = featured.slice(0, 3).length === 3 ? featured.slice(0, 3) : allPrograms.slice(0, 3);
   const faqs = await getFaqs();
   const faqSchema = faqJsonLd(faqs);
   const audiences = await getAudiences();
-  const statistics = await getStatistics();
   const differentiators = await getDifferentiators();
   const journeySteps = await getJourneySteps();
-  const teachers = await getTeachers();
-  const testimonials = await getTestimonials();
-  const events = await getEvents();
-  const articles = await getArticles();
+  // Real profiles first; placeholders sink to the end so parents see trust first.
+  const teachers = (await getTeachers()).sort(
+    (a, b) => Number(a.placeholder) - Number(b.placeholder),
+  );
+  const testimonials = (await getTestimonials()).sort(
+    (a, b) => Number(a.placeholder) - Number(b.placeholder),
+  );
 
   return (
     <>
-      <JsonLd data={organizationJsonLd()} />
+      {/* Organization schema lives in layout.tsx — do not duplicate here. */}
       {faqSchema ? <JsonLd data={faqSchema} /> : null}
 
-      {/* 01 — hero */}
+      {/* 01 — hero: one promise for parents */}
       <Hero />
 
-      {/* 02 — audience / program selector */}
+      {/* 02 — audience / program selector: 2 taps to a path */}
       <AudienceSelector audiences={audiences} programs={allPrograms} />
 
-      {/* 03 — trust / proof (placeholder statistics, clearly marked) */}
-      <Stats statistics={statistics} />
+      {/* 03 — why here: merged differentiators (stats hidden until verified) */}
 
       {/* 04 — why this center */}
       <Differentiators items={differentiators} />
 
-      {/* 05 — programs */}
+      {/* 05 — programs: 3 representative paths only */}
       <ProgramsShowcase programs={programs} />
 
       {/* 06 — learning journey */}
@@ -77,28 +74,21 @@ export default async function HomePage() {
       {/* 07 — classroom experience */}
       <ClassroomExperience />
 
-      {/* 08 — teachers */}
+      {/* 08 — teachers (real profiles first) */}
       <TeachersPreview teachers={teachers} />
 
-      {/* 09 — student outcomes */}
-      <Outcomes />
-
-      {/* 10 — testimonials */}
+      {/* 09 — parent stories */}
       <TestimonialCarousel testimonials={testimonials} />
 
-      {/* 11 — events & activities */}
-      <EventsPreview events={events} />
+      {/* Events & knowledge hub live on /events and /blog until real items exist. */}
 
-      {/* 12 — knowledge hub */}
-      <KnowledgeHub articles={articles} />
-
-      {/* 13 — FAQ */}
+      {/* 10 — FAQ: last objections before the form */}
       <FaqSection faqs={faqs} />
 
-      {/* Lead capture — intelligent multi-step consultation form */}
+      {/* Lead capture — shortened consultation form, single closing flow */}
       <ConsultationSection sourcePage="/" />
 
-      {/* 14 — final CTA */}
+      {/* 11 — final CTA: same single action, no competing ask */}
       <FinalCta />
     </>
   );

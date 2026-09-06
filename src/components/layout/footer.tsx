@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { footerNav } from "@/content/navigation";
 import { siteConfig } from "@/content/site";
+import { env } from "@/lib/env";
 import { Container } from "@/components/ui/container";
 
 export function Footer() {
@@ -54,10 +55,11 @@ export function Footer() {
           <p>
             © {2026} {siteConfig.name}. Bảo lưu mọi quyền.
           </p>
-          <p>
-            {/* Draft notice until real business data is verified — remove at launch (TODO(content)) */}
-            Bản nháp nội dung — thông tin liên hệ và số liệu đang chờ xác thực.
-          </p>
+          {env.showContentDrafts ? (
+            <p>
+              Bản nháp nội dung — thông tin liên hệ và số liệu đang chờ xác thực.
+            </p>
+          ) : null}
         </div>
       </Container>
     </footer>
